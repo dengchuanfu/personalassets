@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title th:text="${site.title+'-'+title}"></title>
-    <link data-n-head="true" rel="icon" type="image/x-icon" th:href="${site.favicon}">
+<html lang="zh-CN"
+      xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{modules/layout :: html(head = ~{::head},content = ~{::content})}">
+<th:block th:fragment="head">
+    <title th:text="${site.title + '-' + title}"></title>
     <th:block th:replace="~{plugin:personalassets:modules/style}"></th:block>
-</head>
+</th:block>
 
-<body>
-    <main class="layout">
+<th:block th:fragment="content">
+    <main class="personalassets-page personalassets-layout">
         <th:block th:replace="~{plugin:personalassets:modules/equipment}"></th:block>
     </main>
-</body>
+</th:block>
 
 </html>

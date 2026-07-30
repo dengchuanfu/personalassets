@@ -20,31 +20,31 @@
     --heo-card-border: #3d3d3f;
     --heo-background: #18171d;
 }
-body {
+.personalassets-page {
     line-height: 2;
     -webkit-tap-highlight-color: transparent;
 }
 
-* {
+.personalassets-page,
+.personalassets-page * {
     box-sizing: border-box;
 }
 
-.layout {
+.personalassets-layout {
     max-width: 1300px;
     gap: .5rem;
-    margin-top: .5rem;
     padding: 0 1.5rem;
     margin: 0 auto;
 }
 
 @media screen and (min-width: 2000px) {
-    .layout {
+    .personalassets-layout {
         max-width: 1500px
     }
 }
 
 @media screen and (max-width: 768px) {
-    .layout {
+    .personalassets-layout {
         padding-top: .5rem;
         padding: .5rem 1rem;
     }
@@ -119,7 +119,7 @@ body {
     font-size: 14px
 }
 
-a {
+.personalassets-page a {
     background-color: transparent;
     color: var(--heo-fontcolor);
     text-decoration: none;
@@ -128,7 +128,7 @@ a {
     -webkit-user-drag: none;
 }
 
-a.equipment-item-content-item-link {
+.personalassets-page a.equipment-item-content-item-link {
     font-size: 12px;
     background: var(--heo-gray-op);
     padding: 4px 8px;
@@ -136,7 +136,7 @@ a.equipment-item-content-item-link {
     cursor: pointer;
 }
 
-a.equipment-item-content-item-link:hover {
+.personalassets-page a.equipment-item-content-item-link:hover {
     background: var(--heo-lighttext);
     color: var(--heo-card-bg)
 }
