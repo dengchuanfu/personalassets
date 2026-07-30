@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title th:text="${site.title+'-'+title}"></title>
+    <link data-n-head="true" rel="icon" type="image/x-icon" th:href="${site.favicon}">
+    <th:block th:replace="~{plugin:personalassets:modules/style}"></th:block>
+</head>
+
+<body>
+    <main class="layout">
+        <th:block th:replace="~{plugin:personalassets:modules/equipment}"></th:block>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+apiVersion: plugin.halo.run/v1alpha1
+kind: Plugin
+metadata:
+  name: personalassets
+  annotations:
+    "store.halo.run/app-id": "app-ytygyqml"
+spec:
+  enabled: false
+  version: 1.1.13
+  requires: ">=2.22.0"
+  author:
+    name: Monster
+    website: https://ffbf.top
+  logo: logo.svg
+  homepage: https://www.halo.run/store/apps/app-ytygyqml
+  repo: https://github.com/dengchuanfu/personalassets
+  issues: https://github.com/dengchuanfu/personalassets/issues
+  configMapName: personalassets-configmap
+  settingName: personalassets-settings
+  displayName: "资产管理"
+  description: "资产管理模块"
+  license:
+    - name: "GPL-3.0"
+      url: "https://github.com/chengzhongxue/plugin-personalassets/blob/main/LICENSE"

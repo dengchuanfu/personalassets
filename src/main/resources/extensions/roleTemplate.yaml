@@ -1,0 +1,48 @@
+apiVersion: v1alpha1
+kind: Role
+metadata:
+  name: personalassets-public-apis
+  labels:
+    halo.run/hidden: "true"
+    halo.run/role-template: "true"
+    rbac.authorization.halo.run/aggregate-to-anonymous: "true"
+  annotations:
+    rbac.authorization.halo.run/module: "PersonalAssets"
+    rbac.authorization.halo.run/display-name: "PersonalAssets Public APIs"
+rules:
+  - apiGroups: [ "api.equipment.kunkunyu.com" ]
+    resources: [ "*" ]
+    verbs: [ "*" ]
+
+---
+
+apiVersion: v1alpha1
+kind: Role
+metadata:
+  name: role-template-personalassets-view
+  labels:
+    halo.run/role-template: "true"
+  annotations:
+    rbac.authorization.halo.run/module: "资产"
+    rbac.authorization.halo.run/ui-permissions: '["plugin:personalassets:view"]'
+    rbac.authorization.halo.run/display-name: "资产查看"
+rules:
+  - apiGroups: [ "equipment.kunkunyu.com", "console.api.equipment.kunkunyu.com"]
+    resources: [ "equipments", "equipmentgroups" ]
+    verbs: [ "get", "list" ]
+---
+apiVersion: v1alpha1
+kind: Role
+metadata:
+  name: role-template-personalassets-manage
+  labels:
+    halo.run/role-template: "true"
+  annotations:
+    rbac.authorization.halo.run/dependencies: '["role-template-personalassets-view"]'
+    rbac.authorization.halo.run/ui-permissions: '["plugin:personalassets:manage"]'
+    rbac.authorization.halo.run/module: "资产"
+    rbac.authorization.halo.run/display-name: "资产管理"
+rules:
+  - apiGroups: [ "equipment.kunkunyu.com", "console.api.equipment.kunkunyu.com"]
+    resources: [ "equipments", "equipmentgroups" ]
+    verbs: [ "create", "patch", "update", "delete", "deletecollection" ]

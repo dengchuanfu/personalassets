@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- 直角正方形渐变背景 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60e0d0"/>
+      <stop offset="100%" stop-color="#7b73e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#bgGrad)"/>
+  <!-- 白色资产图标：柱状增长+上升曲线，代表资产增值 -->
+  <path d="M72 176v-48h32v48h-32zm48 0v-72h32v72h-32zm48 0V96h32v80h-32z" fill="#ffffff"/>
+  <path d="M64 88l52 44 48-32 28 36" stroke="#ffffff" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
