@@ -6,13 +6,12 @@ metadata:
     "store.halo.run/app-id": "app-ytygyqml"
 spec:
   enabled: false
-  version: 1.0.2
+  version: 1.0.3
   requires: ">=2.22.0"
   author:
     name: Monster
     website: https://ffbf.top
   logo: logo.svg
-  homepage: https://www.halo.run/store/apps/app-ytygyqml
   repo: https://github.com/dengchuanfu/personalassets
   issues: https://github.com/dengchuanfu/personalassets/issues
   configMapName: personalassets-configmap
