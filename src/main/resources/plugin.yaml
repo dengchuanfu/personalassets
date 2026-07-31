@@ -6,7 +6,7 @@ metadata:
     "store.halo.run/app-id": "app-ytygyqml"
 spec:
   enabled: false
-  version: 1.0.5
+  version: 1.0.6
   requires: ">=2.22.0"
   author:
     name: Monster
