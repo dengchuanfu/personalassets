@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 import run.halo.app.core.extension.endpoint.CustomEndpoint;
 import run.halo.app.extension.GroupVersion;
 import run.halo.app.extension.ListResult;
+import run.halo.app.plugin.ReactiveSettingFetcher;
 /**
  * Public endpoint for equipment queries.
  */
@@ -23,6 +24,8 @@ import run.halo.app.extension.ListResult;
 public class EquipmentQueryEndpoint implements CustomEndpoint {
 
     private final EquipmentPublicQueryService equipmentPublicQueryService;
+
+    private final ReactiveSettingFetcher settingFetcher;
 
     @Override
     public RouterFunction<ServerResponse> endpoint() {
@@ -38,6 +41,12 @@ public class EquipmentQueryEndpoint implements CustomEndpoint {
                     EquipmentPublicQuery.buildParameters(builder);
                 }
             )
+            .GET("asset-id-options", this::getAssetIdOptions,
+                builder -> builder.operationId("getAssetIdOptions")
+                    .description("Get asset ID options.")
+                    .tag(tag)
+                    .response(responseBuilder().implementation(AssetIdOptions.class))
+            )
             .build();
     }
 
@@ -47,6 +56,13 @@ public class EquipmentQueryEndpoint implements CustomEndpoint {
             .flatMap(result -> ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(result));
+    }
+
+    private Mono<ServerResponse> getAssetIdOptions(ServerRequest request) {
+        return AssetIdOptions.fetch(settingFetcher)
+            .flatMap(options -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(options));
     }
     
     @Override

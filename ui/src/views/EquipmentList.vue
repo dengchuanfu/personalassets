@@ -2,6 +2,7 @@
 import LazyImage from "@/components/LazyImage.vue";
 import EquipmentEditingModal from "@/components/EquipmentEditingModal.vue";
 import type {Equipment, EquipmentGroup, EquipmentGroupList, EquipmentList} from "@/types";
+import { generateAssetId } from "@/utils/asset-id";
 import { axiosInstance } from "@halo-dev/api-client";
 import {
   Dialog,
@@ -44,6 +45,24 @@ const size = ref(20);
 const total = ref(0);
 const keyword = ref("");
 const equipments = ref<Equipment[]>([]);
+const assetIdLength = ref(6);
+
+interface AssetIdOptions {
+  prefix: string;
+  length: number;
+}
+
+useQuery<AssetIdOptions>({
+  queryKey: ["plugin:personalassets:asset-id-options"],
+  queryFn: async () => {
+    const { data } = await axiosInstance.get<AssetIdOptions>("/apis/api.equipment.kunkunyu.com/v1alpha1/asset-id-options");
+    return data;
+  },
+  onSuccess(data) {
+    assetIdLength.value = data.length || 6;
+  },
+  refetchOnWindowFocus: false,
+});
 
 const {
   isLoading,
@@ -324,8 +343,7 @@ const onAttachmentsSelect = async (attachments: AttachmentLike[]) => {
   const createRequests = equipments.map((equipment) => {
     return axiosInstance.post<Equipment>("/apis/equipment.kunkunyu.com/v1alpha1/equipments", {
       metadata: {
-        name: "",
-        generateName: "equipment-",
+        name: generateAssetId(assetIdLength.value),
       },
       spec: equipment,
       kind: "Equipment",
@@ -378,6 +396,7 @@ const onEditingModalClose = () => {
     v-if="editingModal"
     :equipment="selectedEquipment"
     :group="selectedGroup"
+    :asset-id-length="assetIdLength"
     @close="onEditingModalClose"
     @saved="pageRefetch"
   >

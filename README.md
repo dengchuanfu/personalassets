@@ -21,7 +21,7 @@
 
 ## 安装与启用
 
-1. 下载插件构建产物，例如 `plugin-personalassets-1.0.9.jar`。
+1. 下载插件构建产物，例如 `plugin-personalassets-1.0.10.jar`。
 2. 登录 Halo Console。
 3. 进入「插件」页面，点击「安装插件」并上传 `.jar` 文件。
 4. 安装完成后，在插件列表中启用「资产管理」插件。

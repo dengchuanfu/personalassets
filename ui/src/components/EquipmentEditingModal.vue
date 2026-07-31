@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Equipment } from "@/types";
+import { generateAssetId } from "@/utils/asset-id";
 import { axiosInstance } from "@halo-dev/api-client";
 import { VSpace, VButton, VModal } from "@halo-dev/components";
 import { cloneDeep } from "lodash-es";
@@ -9,10 +10,12 @@ const props = withDefaults(
   defineProps<{
     equipment?: Equipment;
     group?: string;
+    assetIdLength?: number;
   }>(),
   {
     equipment: undefined,
     group: undefined,
+    assetIdLength: 6,
   }
 );
 
@@ -21,10 +24,9 @@ const emit = defineEmits<{
   (event: "saved", equipment: Equipment): void;
 }>();
 
-const initialFormState: Equipment = {
+const createInitialFormState = (): Equipment => ({
   metadata: {
-    name: "",
-    generateName: "equipment-",
+    name: generateAssetId(props.assetIdLength),
   },
   spec: {
     displayName: "",
@@ -33,9 +35,9 @@ const initialFormState: Equipment = {
   },
   kind: "Equipment",
   apiVersion: "equipment.kunkunyu.com/v1alpha1",
-} as Equipment;
+} as Equipment);
 
-const formState = ref<Equipment>(cloneDeep(initialFormState));
+const formState = ref<Equipment>(createInitialFormState());
 const isSubmitting = ref(false);
 const modal = useTemplateRef<InstanceType<typeof VModal> | null>("modal");
 
@@ -77,6 +79,8 @@ const handleSaveEquipment = async () => {
       if (props.group) {
         formState.value.spec.groupName = props.group;
       }
+      formState.value.metadata.name = formState.value.metadata.name || generateAssetId(props.assetIdLength);
+      delete formState.value.metadata.generateName;
       const { data } = await axiosInstance.post<Equipment>(`/apis/equipment.kunkunyu.com/v1alpha1/equipments`, formState.value);
       emit("saved", data);
     }

@@ -2,6 +2,7 @@ package com.kunkunyu.equipment.finders.impl;
 
 import com.kunkunyu.equipment.Equipment;
 import com.kunkunyu.equipment.EquipmentGroup;
+import com.kunkunyu.equipment.AssetIdOptions;
 import com.kunkunyu.equipment.finders.EquipmentPublicQueryService;
 import com.kunkunyu.equipment.vo.EquipmentGroupVo;
 import com.kunkunyu.equipment.vo.EquipmentVo;
@@ -13,6 +14,7 @@ import run.halo.app.extension.ListOptions;
 import run.halo.app.extension.ListResult;
 import run.halo.app.extension.PageRequest;
 import run.halo.app.extension.ReactiveExtensionClient;
+import run.halo.app.plugin.ReactiveSettingFetcher;
 
 import java.util.Comparator;
 
@@ -21,19 +23,24 @@ public class EquipmentPublicQueryServiceImpl implements EquipmentPublicQueryServ
 
     private final ReactiveExtensionClient client;
 
-    public EquipmentPublicQueryServiceImpl(ReactiveExtensionClient client) {
+    private final ReactiveSettingFetcher settingFetcher;
+
+    public EquipmentPublicQueryServiceImpl(ReactiveExtensionClient client,
+        ReactiveSettingFetcher settingFetcher) {
         this.client = client;
+        this.settingFetcher = settingFetcher;
     }
 
     @Override
     public Mono<ListResult<EquipmentVo>> listEquipments(ListOptions options, PageRequest page) {
 
-        return client.listBy(Equipment.class, options, page)
-            .flatMap(result -> Flux.fromIterable(result.getItems())
-                .map(EquipmentVo::from)
-                .collectList()
-                .map(items -> new ListResult<>(
-                    result.getPage(), result.getSize(), result.getTotal(), items)));
+        return AssetIdOptions.fetch(settingFetcher)
+            .flatMap(assetIdOptions -> client.listBy(Equipment.class, options, page)
+                .flatMap(result -> Flux.fromIterable(result.getItems())
+                    .map(equipment -> EquipmentVo.from(equipment, assetIdOptions))
+                    .collectList()
+                    .map(items -> new ListResult<>(
+                        result.getPage(), result.getSize(), result.getTotal(), items))));
     }
 
     @Override

@@ -152,20 +152,14 @@
 .equipment-group-heading {
     align-items: center;
     display: inline-flex;
-    gap: 10px;
+    gap: 8px;
     font-weight: 900;
     line-height: 1;
     white-space: nowrap;
 }
 
-.equipment-group-mark,
 .equipment-item-title {
     color: var(--pa-accent);
-}
-
-.equipment-group-mark {
-    font-size: 22px;
-    font-weight: 900;
 }
 
 .equipment-item-title {
@@ -187,6 +181,7 @@
     justify-content: center;
     min-width: 32px;
     padding: 0 10px;
+    transform: translateY(1px);
 }
 
 .equipment-item-description {
@@ -246,19 +241,8 @@
     right: -1px;
 }
 
-.equipment-card-meta {
-    align-items: center;
-    color: #a8dff5;
-    display: flex;
-    font-size: 11px;
-    justify-content: flex-start;
-    letter-spacing: 1px;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
 .equipment-item-content-item-info {
-    margin-top: 18px;
+    margin-top: 0;
 }
 
 .equipment-item-content-item-name {

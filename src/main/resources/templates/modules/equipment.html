@@ -2,7 +2,6 @@
     <th:block th:each="group : ${equipmentFinder.groupBy()}">
         <section class="equipment-item">
             <div class="equipment-group-heading">
-                <span class="equipment-group-mark">#</span>
                 <h2 class="equipment-item-title" th:text="${group.spec.displayName}"></h2>
                 <span class="equipment-group-count" th:text="${#lists.size(group.equipments)}"></span>
             </div>
@@ -15,11 +14,6 @@
                     <div class="equipment-card-corner equipment-card-corner-tr"></div>
                     <div class="equipment-card-corner equipment-card-corner-bl"></div>
                     <div class="equipment-card-corner equipment-card-corner-br"></div>
-
-                    <div class="equipment-card-meta">
-                        <span>PRODUCT_OVERVIEW</span>
-                    </div>
-
                     <div class="equipment-item-content-item-info">
                         <h3 class="equipment-item-content-item-name" th:text="${equipment.spec.displayName}"></h3>
                         <div class="equipment-item-content-item-specification"
@@ -41,7 +35,7 @@
 
                     <div class="equipment-item-content-item-footer">
                         <span class="equipment-item-content-item-id"
-                              th:text="${'ID. ' + equipment.metadata.name}"></span>
+                              th:text="${'ID. ' + equipment.assetId}"></span>
                     </div>
                 </article>
             </div>
