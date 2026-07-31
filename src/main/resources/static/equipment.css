@@ -1,25 +1,22 @@
 :root {
-    --pa-accent: #76cef0;
-    --pa-accent-strong: #45bcea;
-    --pa-bg: #f7f8fa;
-    --pa-card: #ffffff;
-    --pa-text: #25282d;
-    --pa-muted: #8f969d;
-    --pa-border: #dfe7ed;
-    --pa-line: #73cdf5;
-    --pa-shadow: 0 18px 40px rgba(42, 148, 192, .08);
+    --pa-card: var(--halo-card-bg-color, var(--halo-color-card, var(--theme-card-bg-color, Canvas)));
+    --pa-text: var(--halo-color-text, var(--theme-text-color, CanvasText));
+    --pa-muted: var(--halo-color-text-secondary, var(--theme-secondary-text-color, color-mix(in srgb, CanvasText 58%, transparent)));
+    --pa-border: var(--halo-color-border, var(--theme-border-color, color-mix(in srgb, CanvasText 18%, transparent)));
+    --pa-subtle: var(--halo-color-fill-secondary, var(--theme-subtle-bg-color, color-mix(in srgb, CanvasText 7%, transparent)));
+    --pa-shadow: 0 10px 26px rgba(0, 0, 0, .06);
 }
 
 .personalassets-body {
-    background: var(--pa-bg);
+    background: inherit;
     color: var(--pa-text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: inherit;
     margin: 0;
 }
 
 .personalassets-header {
-    background: rgba(255, 255, 255, .88);
-    border-bottom: 1px solid rgba(118, 206, 240, .22);
+    background: var(--pa-card);
+    border-bottom: 1px solid var(--pa-border);
     backdrop-filter: blur(14px);
     position: sticky;
     top: 0;
@@ -46,16 +43,15 @@
 }
 
 .personalassets-logo {
-    border: 2px solid #fff;
+    border: 1px solid var(--pa-border);
     border-radius: 50%;
-    box-shadow: 0 4px 14px rgba(48, 171, 220, .22);
     height: 40px;
     object-fit: cover;
     width: 40px;
 }
 
 .personalassets-site-title {
-    color: var(--pa-accent-strong);
+    color: inherit;
 }
 
 .personalassets-menu {
@@ -70,7 +66,7 @@
 
 .personalassets-menu a {
     align-items: center;
-    color: var(--pa-accent-strong);
+    color: inherit;
     display: inline-flex;
     font-size: 14px;
     font-weight: 700;
@@ -80,16 +76,11 @@
 }
 
 .personalassets-menu a::before {
-    background: currentColor;
-    border-radius: 3px;
-    content: "";
-    height: 9px;
-    opacity: .75;
-    width: 9px;
+    content: none;
 }
 
 .personalassets-menu a:hover {
-    color: #159fd6;
+    opacity: .78;
 }
 
 .personalassets-hero {
@@ -102,20 +93,18 @@
 }
 
 .personalassets-hero h1 {
-    color: var(--pa-accent);
+    color: inherit;
     font-size: 34px;
-    font-style: italic;
     font-weight: 900;
     letter-spacing: 0;
     line-height: 1.15;
     margin: 0;
-    text-shadow: 0 8px 18px rgba(118, 206, 240, .26);
 }
 
 .personalassets-hero-line {
-    background: linear-gradient(90deg, transparent, var(--pa-accent), transparent);
+    background: var(--pa-border);
     display: block;
-    height: 2px;
+    height: 1px;
     margin: 12px auto 10px;
     width: 74px;
 }
@@ -151,37 +140,46 @@
 
 .equipment-group-heading {
     align-items: center;
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
     gap: 8px;
     font-weight: 900;
     line-height: 1;
+    justify-content: flex-start;
+    width: fit-content;
     white-space: nowrap;
 }
 
 .equipment-item-title {
-    color: var(--pa-accent);
-}
-
-.equipment-item-title {
+    color: inherit;
+    display: inline-flex;
+    flex: 0 0 auto;
     font-size: 22px;
     font-weight: 900;
     line-height: 1.2;
     margin: 0;
+    max-width: none;
+    width: auto;
 }
 
 .equipment-group-count {
     align-items: center;
-    background: var(--pa-accent);
-    border-radius: 999px;
-    color: #fff;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
     display: inline-flex;
+    flex: 0 0 auto;
     font-size: 12px;
     font-weight: 800;
-    height: 24px;
+    height: auto;
     justify-content: center;
-    min-width: 32px;
-    padding: 0 10px;
+    line-height: 1;
+    min-width: 0;
+    padding: 0;
+    position: static;
     transform: translateY(1px);
+    width: auto;
 }
 
 .equipment-item-description {
@@ -198,47 +196,12 @@
 }
 
 .equipment-item-content-item {
-    background: rgba(255, 255, 255, .72);
+    background: var(--pa-card);
     border: 1px solid var(--pa-border);
     box-shadow: var(--pa-shadow);
     min-height: 470px;
-    padding: 24px;
+    padding: 24px 24px 58px;
     position: relative;
-}
-
-.equipment-card-corner {
-    border-color: var(--pa-line);
-    height: 10px;
-    position: absolute;
-    width: 10px;
-}
-
-.equipment-card-corner-tl {
-    border-left: 2px solid;
-    border-top: 2px solid;
-    left: -1px;
-    top: -1px;
-}
-
-.equipment-card-corner-tr {
-    border-right: 2px solid;
-    border-top: 2px solid;
-    right: -1px;
-    top: -1px;
-}
-
-.equipment-card-corner-bl {
-    border-bottom: 2px solid;
-    border-left: 2px solid;
-    bottom: -1px;
-    left: -1px;
-}
-
-.equipment-card-corner-br {
-    border-bottom: 2px solid;
-    border-right: 2px solid;
-    bottom: -1px;
-    right: -1px;
 }
 
 .equipment-item-content-item-info {
@@ -254,7 +217,7 @@
 }
 
 .equipment-item-content-item-specification {
-    color: var(--pa-accent-strong);
+    color: var(--pa-muted);
     font-size: 13px;
     font-weight: 700;
     line-height: 1.4;
@@ -263,7 +226,7 @@
 
 .equipment-item-content-item-cover {
     aspect-ratio: 16 / 10;
-    background: #eef5f8;
+    background: var(--pa-subtle);
     border-radius: 8px;
     margin-top: 14px;
     overflow: hidden;
@@ -278,7 +241,6 @@
 }
 
 .equipment-item-content-item-body {
-    border-bottom: 1px dashed #edf1f4;
     min-height: 86px;
     padding: 14px 0 18px;
 }
@@ -296,15 +258,26 @@
 
 .equipment-item-content-item-footer {
     align-items: center;
+    border-top: 1px dashed var(--pa-border);
+    bottom: 18px;
     display: flex;
     justify-content: flex-end;
-    margin-top: 14px;
+    left: 24px;
+    padding-top: 10px;
+    position: absolute;
+    right: 24px;
+    text-align: right;
+    width: auto;
 }
 
 .equipment-item-content-item-id {
-    color: #c7ecfb;
+    color: var(--pa-muted);
+    display: block;
     font-size: 12px;
     font-weight: 700;
+    margin-left: auto;
+    opacity: .72;
+    text-align: right;
 }
 
 @media screen and (max-width: 1180px) {
@@ -345,6 +318,12 @@
 
     .equipment-item-content-item {
         min-height: auto;
-        padding: 20px;
+        padding: 20px 20px 54px;
+    }
+
+    .equipment-item-content-item-footer {
+        bottom: 16px;
+        left: 20px;
+        right: 20px;
     }
 }

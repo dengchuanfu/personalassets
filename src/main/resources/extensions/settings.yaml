@@ -11,11 +11,11 @@ spec:
           label: 页面标题
           name: title
           validation: required
-          value: "资产"
+          value: "个人资产"
         - $formkit: text
           label: 页面副标题
           name: subtitle
-          value: "工欲善其事，必先利其器"
+          value: "看得见的家底，理得清的资产。"
         - $formkit: text
           label: 资产 ID 前缀
           name: assetIdPrefix

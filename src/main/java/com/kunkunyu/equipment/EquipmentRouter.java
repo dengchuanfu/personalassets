@@ -107,14 +107,14 @@ public class EquipmentRouter {
     
     Mono<String> getEquipmentTitle() {
         return this.settingFetcher.get("base").map(
-            setting -> setting.get("title").asText("资产")).defaultIfEmpty(
-            "资产");
+            setting -> setting.get("title").asText("个人资产")).defaultIfEmpty(
+            "个人资产");
     }
     
     Mono<String> getEquipmentSubtitle() {
         return this.settingFetcher.get("base").map(
-            setting -> setting.get("subtitle").asText("工欲善其事，必先利其器")).defaultIfEmpty(
-            "工欲善其事，必先利其器");
+            setting -> setting.get("subtitle").asText("看得见的家底，理得清的资产。")).defaultIfEmpty(
+            "看得见的家底，理得清的资产。");
     }
 
     private Mono<List<EquipmentGroupVo>> equipmentGroups() {

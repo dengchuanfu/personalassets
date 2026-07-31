@@ -25,12 +25,22 @@ public class EquipmentVo implements ExtensionVoOperator {
     
     public static EquipmentVo from(Equipment equipment, AssetIdOptions assetIdOptions) {
         String name = equipment.getMetadata().getName();
-        String assetId = assetIdOptions.prefix() + generateAssetId(name, assetIdOptions.length());
+        String assetId = formatAssetId(
+            assetIdOptions.prefix(),
+            generateAssetId(name, assetIdOptions.length())
+        );
         return EquipmentVo.builder()
             .metadata(equipment.getMetadata())
             .assetId(assetId)
             .spec(equipment.getSpec())
             .build();
+    }
+    
+    private static String formatAssetId(String prefix, String assetId) {
+        if (prefix == null || prefix.isBlank()) {
+            return assetId;
+        }
+        return prefix + "-" + assetId;
     }
     
     private static String generateAssetId(String source, int length) {
