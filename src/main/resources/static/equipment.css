@@ -149,12 +149,20 @@
     align-items: center;
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 6px;
     font-weight: 900;
     line-height: 1;
     justify-content: flex-start;
     width: fit-content;
     white-space: nowrap;
+}
+
+.equipment-item-icon {
+    color: var(--pa-text);
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 24px;
+    width: 24px;
 }
 
 .equipment-item-title {
@@ -167,6 +175,15 @@
     margin: 0;
     max-width: none;
     width: auto;
+}
+
+.equipment-item-count {
+    color: var(--pa-muted);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2;
 }
 
 .equipment-item-description {
