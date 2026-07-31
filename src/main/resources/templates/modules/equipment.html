@@ -3,7 +3,6 @@
         <section class="equipment-item">
             <div class="equipment-group-heading">
                 <h2 class="equipment-item-title" th:text="${group.spec.displayName}"></h2>
-                <span class="equipment-group-count" th:text="${#lists.size(group.equipments)}"></span>
             </div>
             <div class="equipment-item-description"
                  th:if="${not #strings.isEmpty(group.spec.description)}"
