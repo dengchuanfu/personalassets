@@ -1,25 +1,38 @@
 <!doctype html>
-<html th:lang="${#locale.toLanguageTag}"
-      xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
-      xmlns:halo="https://halo.run">
+<html lang="zh-CN" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{partials/base-head}" />
-    <title th:text="${site.title + '-' + title}"></title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title th:text="${site.title + '-资产'}"></title>
+    <link data-n-head="true" rel="icon" type="image/x-icon" th:href="${site.favicon}">
     <th:block th:replace="~{plugin:personalassets:modules/style}"></th:block>
 </head>
-<body class="hidden bg-slate-50 dark:bg-slate-900">
-<th:block th:replace="~{partials/header}" />
-<th:block th:replace="~{modules/hero :: hero(isHome = true, cover = null, title = null)}" />
+<body class="personalassets-body">
+<header class="personalassets-header" th:with="menu=${menuFinder.getPrimary()}">
+    <nav class="personalassets-nav">
+        <a class="personalassets-brand" th:href="@{/}">
+            <img class="personalassets-logo" th:if="${not #strings.isEmpty(site.logo)}" th:src="${site.logo}" th:alt="${site.title}">
+            <span class="personalassets-site-title" th:if="${#strings.isEmpty(site.logo)}" th:text="${site.title}"></span>
+        </a>
+        <ul class="personalassets-menu" th:if="${menu != null and not #lists.isEmpty(menu.menuItems)}">
+            <li th:each="menuItem : ${menu.menuItems}">
+                <a th:href="@{${menuItem.status.href}}"
+                   th:text="${menuItem.status.displayName}"
+                   th:target="${menuItem.spec.target?.value}"></a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-<section class="mx-auto mt-6 max-w-7xl px-4 lg:px-6">
-    <div class="z-0 min-w-0">
-        <div class="rounded-xl bg-white p-4 dark:bg-slate-800">
-            <main class="personalassets-page">
-                <th:block th:replace="~{plugin:personalassets:modules/equipment}"></th:block>
-            </main>
-        </div>
+<section class="personalassets-hero">
+    <div class="personalassets-hero-inner">
+        <h1 th:text="${site.title}"></h1>
+        <p th:if="${not #strings.isEmpty(site.subtitle)}" th:text="${site.subtitle}"></p>
     </div>
 </section>
+
+<main class="personalassets-page personalassets-layout">
+    <th:block th:replace="~{plugin:personalassets:modules/equipment}"></th:block>
+</main>
 </body>
 </html>
