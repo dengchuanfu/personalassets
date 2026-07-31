@@ -1,32 +1,58 @@
 <div id="equipment">
     <th:block th:each="group : ${equipmentFinder.groupBy()}">
-        <div class="equipment-item">
-            <h2 class="equipment-item-title" th:text="${group.spec.displayName}"></h2>
-            <div class="equipment-item-description" th:if="${not #strings.isEmpty(group.spec.description)}" th:text="${group.spec.description}"></div>
+        <section class="equipment-item">
+            <div class="equipment-group-heading">
+                <span class="equipment-group-mark">#</span>
+                <h2 class="equipment-item-title" th:text="${group.spec.displayName}"></h2>
+                <span class="equipment-group-count" th:text="${#lists.size(group.equipments)}"></span>
+            </div>
+            <div class="equipment-item-description"
+                 th:if="${not #strings.isEmpty(group.spec.description)}"
+                 th:text="${group.spec.description}"></div>
             <div class="equipment-item-content">
-                <div th:each="equipment : ${group.equipments}" class="equipment-item-content-item">
-                    <div class="equipment-item-content-item-cover">
-                        <img class="equipment-item-content-item-image entered" th:alt="${equipment.spec.displayName}"
-                            th:src="${equipment.spec.cover}">
-                    </div>
-                    <div class="equipment-item-content-item-info">
-                        <div class="equipment-item-content-item-name" th:text="${equipment.spec.displayName}">
-                        </div>
-                        <div class="equipment-item-content-item-specification"
-                             th:if="${not #strings.isEmpty(equipment.spec.specification)}"
-                            th:text="${equipment.spec.specification}"></div>
-                        <div class="equipment-item-content-item-description"
-                             th:if="${not #strings.isEmpty(equipment.spec.description)}"
-                             th:text="${equipment.spec.description}">
-                        </div>
-                        <div class="equipment-item-content-item-toolbar" th:if="${not #strings.isEmpty(equipment.spec.url)}">
-                            <a class="equipment-item-content-item-link" th:href="${equipment.spec.url}"
-                                target="_blank" rel="noopener noreferrer">详情</a>
-                        </div>
+                <article th:each="equipment : ${group.equipments}" class="equipment-item-content-item">
+                    <div class="equipment-card-corner equipment-card-corner-tl"></div>
+                    <div class="equipment-card-corner equipment-card-corner-tr"></div>
+                    <div class="equipment-card-corner equipment-card-corner-bl"></div>
+                    <div class="equipment-card-corner equipment-card-corner-br"></div>
+
+                    <div class="equipment-card-meta">
+                        <span>PRODUCT_OVERVIEW</span>
+                        <span>核心设备</span>
                     </div>
 
-                </div>
+                    <div class="equipment-item-content-item-info">
+                        <h3 class="equipment-item-content-item-name" th:text="${equipment.spec.displayName}"></h3>
+                        <div class="equipment-item-content-item-specification"
+                             th:if="${not #strings.isEmpty(equipment.spec.specification)}"
+                             th:text="${equipment.spec.specification}"></div>
+                    </div>
+
+                    <div class="equipment-item-content-item-cover">
+                        <img class="equipment-item-content-item-image entered"
+                             th:alt="${equipment.spec.displayName}"
+                             th:src="${equipment.spec.cover}">
+                    </div>
+
+                    <div class="equipment-item-content-item-body">
+                        <div class="equipment-item-content-item-description"
+                             th:if="${not #strings.isEmpty(equipment.spec.description)}"
+                             th:text="${equipment.spec.description}"></div>
+                    </div>
+
+                    <div class="equipment-item-content-item-footer">
+                        <span class="equipment-item-content-item-id"
+                              th:text="${'ID. ' + equipment.metadata.name}"></span>
+                        <div class="equipment-item-content-item-toolbar"
+                             th:if="${not #strings.isEmpty(equipment.spec.url)}">
+                            <a class="equipment-item-content-item-link"
+                               th:href="${equipment.spec.url}"
+                               target="_blank"
+                               rel="noopener noreferrer">详情</a>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </div>
+        </section>
     </th:block>
 </div>

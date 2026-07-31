@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title th:text="${site.title + '-资产'}"></title>
+    <title th:text="${site.title + '-' + title}"></title>
     <link data-n-head="true" rel="icon" type="image/x-icon" th:href="${site.favicon}">
     <th:block th:replace="~{plugin:personalassets:modules/style}"></th:block>
 </head>
@@ -26,8 +26,9 @@
 
 <section class="personalassets-hero">
     <div class="personalassets-hero-inner">
-        <h1 th:text="${site.title}"></h1>
-        <p th:if="${not #strings.isEmpty(site.subtitle)}" th:text="${site.subtitle}"></p>
+        <h1 th:text="${title}"></h1>
+        <span class="personalassets-hero-line"></span>
+        <p>工欲善其事，必先利其器</p>
     </div>
 </section>
 
