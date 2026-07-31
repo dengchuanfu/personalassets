@@ -21,7 +21,7 @@
 
 ## 安装与启用
 
-1. 下载插件构建产物，例如 `plugin-personalassets-1.0.8.jar`。
+1. 下载插件构建产物，例如 `plugin-personalassets-1.0.9.jar`。
 2. 登录 Halo Console。
 3. 进入「插件」页面，点击「安装插件」并上传 `.jar` 文件。
 4. 安装完成后，在插件列表中启用「资产管理」插件。
@@ -46,7 +46,7 @@
 3. 填写资产信息：
    - 名称：资产展示名称。
    - 封面：用于前台展示的图片。
-   - 资产地址：点击详情按钮时跳转的链接。
+   - 资产地址：用于主题自定义模板跳转的链接。
    - 资产规格：例如型号、版本、配置等。
    - 描述：资产的补充说明。
 4. 点击保存。
@@ -124,7 +124,7 @@
       <h3 th:text="${equipment.spec.displayName}"></h3>
       <p th:if="${not #strings.isEmpty(equipment.spec.specification)}" th:text="${equipment.spec.specification}"></p>
       <p th:if="${not #strings.isEmpty(equipment.spec.description)}" th:text="${equipment.spec.description}"></p>
-      <a th:if="${not #strings.isEmpty(equipment.spec.url)}" th:href="${equipment.spec.url}" target="_blank">详情</a>
+      <a th:if="${not #strings.isEmpty(equipment.spec.url)}" th:href="${equipment.spec.url}" target="_blank">查看</a>
     </div>
   </section>
 </th:block>

@@ -60,7 +60,8 @@ public class EquipmentRouter {
                 Map.of("groups", equipmentGroups(),
                     "equipments", equipmentList(request),
                     ModelConst.TEMPLATE_ID, templateName,
-                    "title", getEquipmentTitle()
+                    "title", getEquipmentTitle(),
+                    "subtitle", getEquipmentSubtitle()
                 ))
             );
 
@@ -110,6 +111,12 @@ public class EquipmentRouter {
             "资产");
     }
     
+    Mono<String> getEquipmentSubtitle() {
+        return this.settingFetcher.get("base").map(
+            setting -> setting.get("subtitle").asText("工欲善其事，必先利其器")).defaultIfEmpty(
+            "工欲善其事，必先利其器");
+    }
+
     private Mono<List<EquipmentGroupVo>> equipmentGroups() {
         return equipmentFinder.groupBy().collectList();
     }

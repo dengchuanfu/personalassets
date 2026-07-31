@@ -18,7 +18,6 @@
 
                     <div class="equipment-card-meta">
                         <span>PRODUCT_OVERVIEW</span>
-                        <span>核心设备</span>
                     </div>
 
                     <div class="equipment-item-content-item-info">
@@ -43,13 +42,6 @@
                     <div class="equipment-item-content-item-footer">
                         <span class="equipment-item-content-item-id"
                               th:text="${'ID. ' + equipment.metadata.name}"></span>
-                        <div class="equipment-item-content-item-toolbar"
-                             th:if="${not #strings.isEmpty(equipment.spec.url)}">
-                            <a class="equipment-item-content-item-link"
-                               th:href="${equipment.spec.url}"
-                               target="_blank"
-                               rel="noopener noreferrer">详情</a>
-                        </div>
                     </div>
                 </article>
             </div>
