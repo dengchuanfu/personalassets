@@ -4,6 +4,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static run.halo.app.theme.router.PageUrlUtils.totalPage;
 
+import com.kunkunyu.equipment.finders.EquipmentFinder;
+import com.kunkunyu.equipment.vo.EquipmentGroupVo;
+import com.kunkunyu.equipment.vo.EquipmentVo;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -22,26 +25,24 @@ import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.TemplateNameResolver;
 import run.halo.app.theme.router.PageUrlUtils;
 import run.halo.app.theme.router.UrlContextListResult;
-import com.kunkunyu.equipment.finders.EquipmentFinder;
-import com.kunkunyu.equipment.vo.EquipmentGroupVo;
-import com.kunkunyu.equipment.vo.EquipmentVo;
 
 /**
  * Provides a <code>/personalassets</code> route for the topic end to handle routing.
- *
  */
 @Component
 @AllArgsConstructor
 public class EquipmentRouter {
-    
+
     private static final String GROUP_PARAM = "group";
-    
-    private EquipmentFinder equipmentFinder;
-    
+
+    private static final int DEFAULT_PAGE_SIZE = 20;
+
+    private EquipmentFinder personalassets;
+
     private final ReactiveSettingFetcher settingFetcher;
 
     private final TemplateNameResolver templateNameResolver;
-    
+
     /**
      * Provides a <code>/personalassets</code> route for the topic end to handle routing.
      *
@@ -53,7 +54,7 @@ public class EquipmentRouter {
             handlerFunction()
         );
     }
-    
+
     private HandlerFunction<ServerResponse> handlerFunction() {
         return request -> templateNameResolver.resolveTemplateNameOrDefault(request.exchange(), "personalassets")
             .flatMap(templateName -> ServerResponse.ok().render(templateName,
@@ -64,60 +65,56 @@ public class EquipmentRouter {
                     "subtitle", getEquipmentSubtitle()
                 ))
             );
-
     }
-    
+
     private Mono<UrlContextListResult<EquipmentVo>> equipmentList(ServerRequest request) {
         String path = request.path();
         int pageNum = pageNumInPathVariable(request);
         String group = groupPathQueryParam(request);
-        return this.settingFetcher.get("base")
-            .map(item -> item.get("pageSize").asInt(10))
-            .defaultIfEmpty(10)
-            .flatMap(pageSize -> equipmentFinder.list(pageNum, pageSize, group)
-                .map(list -> new UrlContextListResult.Builder<EquipmentVo>()
-                    .listResult(list)
-                    .nextUrl(appendGroupParam(
-                        PageUrlUtils.nextPageUrl(path, totalPage(list)), group)
-                    )
-                    .prevUrl(appendGroupParam(PageUrlUtils.prevPageUrl(path), group))
-                    .build()
+        return personalassets.list(pageNum, DEFAULT_PAGE_SIZE, group)
+            .map(list -> new UrlContextListResult.Builder<EquipmentVo>()
+                .listResult(list)
+                .nextUrl(appendGroupParam(
+                    PageUrlUtils.nextPageUrl(path, totalPage(list)), group)
                 )
+                .prevUrl(appendGroupParam(PageUrlUtils.prevPageUrl(path), group))
+                .build()
             );
-        
     }
-    
+
     private static String appendGroupParam(String path, String group) {
         return UriComponentsBuilder.fromPath(path)
             .queryParamIfPresent(GROUP_PARAM, Optional.ofNullable(group))
             .build()
             .toString();
     }
-    
+
     private int pageNumInPathVariable(ServerRequest request) {
         String page = request.pathVariables().get("page");
         return NumberUtils.toInt(page, 1);
     }
-    
+
     private String groupPathQueryParam(ServerRequest request) {
         return request.queryParam(GROUP_PARAM)
             .filter(StringUtils::isNotBlank)
             .orElse(null);
     }
-    
+
     Mono<String> getEquipmentTitle() {
         return this.settingFetcher.get("base").map(
-            setting -> setting.get("title").asText("个人资产")).defaultIfEmpty(
-            "个人资产");
+            setting -> setting.get("title").asText("\u4e2a\u4eba\u8d44\u4ea7")).defaultIfEmpty(
+            "\u4e2a\u4eba\u8d44\u4ea7");
     }
-    
+
     Mono<String> getEquipmentSubtitle() {
         return this.settingFetcher.get("base").map(
-            setting -> setting.get("subtitle").asText("看得见的家底，理得清的资产。")).defaultIfEmpty(
-            "看得见的家底，理得清的资产。");
+            setting -> setting.get("subtitle").asText(
+                "\u770b\u5f97\u89c1\u7684\u5bb6\u5e95\uff0c\u7406\u5f97\u6e05\u7684\u8d44\u4ea7\u3002"))
+            .defaultIfEmpty(
+                "\u770b\u5f97\u89c1\u7684\u5bb6\u5e95\uff0c\u7406\u5f97\u6e05\u7684\u8d44\u4ea7\u3002");
     }
 
     private Mono<List<EquipmentGroupVo>> equipmentGroups() {
-        return equipmentFinder.groupBy().collectList();
+        return personalassets.groupBy().collectList();
     }
 }

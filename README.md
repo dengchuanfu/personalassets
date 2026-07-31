@@ -21,7 +21,7 @@
 
 ## 安装与启用
 
-1. 下载插件构建产物，例如 `plugin-personalassets-1.0.12.jar`。
+1. 下载插件构建产物，例如 `plugin-personalassets-1.0.13.jar`。
 2. 登录 Halo Console。
 3. 进入「插件」页面，点击「安装插件」并上传 `.jar` 文件。
 4. 安装完成后，在插件列表中启用「资产管理」插件。
@@ -92,7 +92,6 @@
 | 配置项 | 说明 | 默认值 |
 | --- | --- | --- |
 | 页面标题 | 前台 `/personalassets` 页面的标题 | 资产 |
-| 资产列表显示条数 | 前台分页时每页显示的资产数量 | 20 |
 
 ## 主题模板集成
 
@@ -100,12 +99,12 @@
 
 如果当前主题不是 Earth，或者希望完全自定义页面结构，可以在主题中提供 `personalassets.html` 模板，Halo 会优先使用主题模板。
 
-插件在主题端提供 `equipmentFinder`，可用于查询资产和分组。
+插件在主题端提供 `personalassets` Finder，可用于查询资产和分组。
 
 ### 查询全部资产
 
 ```html
-<th:block th:each="equipment : ${equipmentFinder.listAll()}">
+<th:block th:each="equipment : ${personalassets.listAll()}">
   <img th:src="${equipment.spec.cover}" th:alt="${equipment.spec.displayName}">
   <a th:href="${equipment.spec.url}" th:text="${equipment.spec.displayName}"></a>
 </th:block>
@@ -114,7 +113,7 @@
 ### 按分组展示资产
 
 ```html
-<th:block th:each="group : ${equipmentFinder.groupBy()}">
+<th:block th:each="group : ${personalassets.groupBy()}">
   <section>
     <h2 th:text="${group.spec.displayName}"></h2>
     <p th:if="${not #strings.isEmpty(group.spec.description)}" th:text="${group.spec.description}"></p>
@@ -133,7 +132,7 @@
 ### 按指定分组查询
 
 ```html
-<th:block th:each="equipment : ${equipmentFinder.listBy('equipment-group-example')}">
+<th:block th:each="equipment : ${personalassets.listBy('equipment-group-example')}">
   <span th:text="${equipment.spec.displayName}"></span>
 </th:block>
 ```

@@ -15,7 +15,6 @@ export default definePlugin({
           title: "资产",
           searchable: true,
           icon: markRaw(CarbonFinancialAssets),
-          permissions: ["plugin:personalassets:view"],
           menu: {
             name: "资产",
             group: "content",

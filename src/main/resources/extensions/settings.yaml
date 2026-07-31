@@ -5,28 +5,23 @@ metadata:
 spec:
   forms:
     - group: base
-      label: 基本设置
+      label: "\u57fa\u672c\u8bbe\u7f6e"
       formSchema:
         - $formkit: text
-          label: 页面标题
+          label: "\u9875\u9762\u6807\u9898"
           name: title
           validation: required
-          value: "个人资产"
+          value: "\u4e2a\u4eba\u8d44\u4ea7"
         - $formkit: text
-          label: 页面副标题
+          label: "\u9875\u9762\u526f\u6807\u9898"
           name: subtitle
-          value: "看得见的家底，理得清的资产。"
+          value: "\u770b\u5f97\u89c1\u7684\u5bb6\u5e95\uff0c\u7406\u5f97\u6e05\u7684\u8d44\u4ea7\u3002"
         - $formkit: text
-          label: 资产 ID 前缀
+          label: "\u8d44\u4ea7 ID \u524d\u7f00"
           name: assetIdPrefix
           value: ""
         - $formkit: number
-          label: 资产 ID 长度
+          label: "\u8d44\u4ea7 ID \u957f\u5ea6"
           name: assetIdLength
           validation: required|min:2|max:32
           value: 6
-        - $formkit: text
-          label: 资产列表显示条数
-          name: pageSize
-          validation: required|Number
-          value: 20

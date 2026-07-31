@@ -1,5 +1,5 @@
 <div id="equipment">
-    <th:block th:each="group : ${equipmentFinder.groupBy()}">
+    <th:block th:each="group : ${personalassets.groupBy()}">
         <section class="equipment-item">
             <div class="equipment-group-heading">
                 <h2 class="equipment-item-title" th:text="${group.spec.displayName}"></h2>
