@@ -2,11 +2,9 @@ apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
   name: personalassets
-  annotations:
-    "store.halo.run/app-id": "app-ytygyqml"
 spec:
   enabled: false
-  version: 1.0.6
+  version: 1.0.7
   requires: ">=2.22.0"
   author:
     name: Monster
