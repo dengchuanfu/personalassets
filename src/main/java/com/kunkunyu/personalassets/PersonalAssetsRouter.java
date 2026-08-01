@@ -63,6 +63,7 @@ public class PersonalAssetsRouter {
                     ModelConst.TEMPLATE_ID, templateName,
                     "title", getPersonalAssetTitle(),
                     "subtitle", getPersonalAssetSubtitle(),
+                    "currentGroup", Optional.ofNullable(groupPathQueryParam(request)).orElse(""),
                     "showPrice", getShowPrice()
                 ))
             );
