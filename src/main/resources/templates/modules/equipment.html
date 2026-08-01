@@ -2,7 +2,11 @@
     <th:block th:each="group : ${personalassets.groupBy()}">
         <section class="equipment-item">
             <div class="equipment-group-heading">
-                <svg class="equipment-item-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                <svg class="equipment-item-icon"
+                     viewBox="0 0 32 32"
+                     aria-hidden="true"
+                     focusable="false"
+                     style="display: inline-block; flex: 0 0 22px; height: 22px; margin-right: 2px; vertical-align: -4px; width: 22px;">
                     <path fill="currentColor"
                           d="M27 16h-2v2h-1c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h4v2h-6v2h3v2h2v-2h1c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2h-4v-2h6v-2h-3zm1-8h-6V4c0-1.1-.9-2-2-2h-8c-1.1 0-2 .9-2 2v4H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h15v-2H4V10h24v4h2v-4c0-1.1-.9-2-2-2m-8 0h-8V4h8z"></path>
                 </svg>
@@ -16,17 +20,17 @@
                  th:text="${group.spec.description}"></div>
             <div class="equipment-item-content">
                 <article th:each="equipment : ${group.equipments}" class="equipment-item-content-item">
+                    <div class="equipment-item-content-item-cover">
+                        <img class="equipment-item-content-item-image entered"
+                             th:alt="${equipment.spec.displayName}"
+                             th:src="${equipment.spec.cover}">
+                    </div>
+
                     <div class="equipment-item-content-item-info">
                         <h3 class="equipment-item-content-item-name" th:text="${equipment.spec.displayName}"></h3>
                         <div class="equipment-item-content-item-specification"
                              th:if="${not #strings.isEmpty(equipment.spec.specification)}"
                              th:text="${equipment.spec.specification}"></div>
-                    </div>
-
-                    <div class="equipment-item-content-item-cover">
-                        <img class="equipment-item-content-item-image entered"
-                             th:alt="${equipment.spec.displayName}"
-                             th:src="${equipment.spec.cover}">
                     </div>
 
                     <div class="equipment-item-content-item-body">
