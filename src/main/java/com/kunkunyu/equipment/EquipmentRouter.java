@@ -62,7 +62,8 @@ public class EquipmentRouter {
                     "equipments", equipmentList(request),
                     ModelConst.TEMPLATE_ID, templateName,
                     "title", getEquipmentTitle(),
-                    "subtitle", getEquipmentSubtitle()
+                    "subtitle", getEquipmentSubtitle(),
+                    "showPrice", getShowPrice()
                 ))
             );
     }
@@ -112,6 +113,11 @@ public class EquipmentRouter {
                 "\u770b\u5f97\u89c1\u7684\u5bb6\u5e95\uff0c\u7406\u5f97\u6e05\u7684\u8d44\u4ea7\u3002"))
             .defaultIfEmpty(
                 "\u770b\u5f97\u89c1\u7684\u5bb6\u5e95\uff0c\u7406\u5f97\u6e05\u7684\u8d44\u4ea7\u3002");
+    }
+
+    Mono<Boolean> getShowPrice() {
+        return this.settingFetcher.get("base").map(
+            setting -> setting.get("showPrice").asBoolean(false)).defaultIfEmpty(false);
     }
 
     private Mono<List<EquipmentGroupVo>> equipmentGroups() {

@@ -280,7 +280,6 @@ const attachmentModal = ref(false);
 
 const onAttachmentsSelect = async (attachments: AttachmentLike[]) => {
   const equipments: {
-    url: string;
     cover?: string;
     displayName?: string;
     type?: string;
@@ -293,14 +292,12 @@ const onAttachmentsSelect = async (attachments: AttachmentLike[]) => {
       if (typeof attachment === "string") {
         return {
           ...post,
-          url: attachment,
           cover: attachment,
         };
       }
       if ("url" in attachment) {
         return {
           ...post,
-          url: attachment.url,
           cover: attachment.url,
         };
       }
@@ -314,7 +311,6 @@ const onAttachmentsSelect = async (attachments: AttachmentLike[]) => {
       }
     })
     .filter(Boolean) as {
-    url: string;
     cover?: string;
     displayName?: string;
     type?: string;
@@ -506,7 +502,7 @@ const onEditingModalClose = () => {
                     <LazyImage
                       :key="equipment.metadata.name"
                       :alt="equipment.spec.displayName"
-                      :src="equipment.spec.cover || equipment.spec.url"
+                      :src="equipment.spec.cover || ''"
                       classes="size-full pointer-events-none group-hover:opacity-75"
                     >
                       <template #loading>

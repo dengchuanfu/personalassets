@@ -26,7 +26,7 @@ export interface EquipmentSpec {
   displayName: string;
   specification?: string;
   description?: string;
-  url: string;
+  url?: string;
   cover?: string;
   priority?: number;
   groupName: string;

@@ -16,6 +16,10 @@ spec:
           label: "\u9875\u9762\u526f\u6807\u9898"
           name: subtitle
           value: "\u770b\u5f97\u89c1\u7684\u5bb6\u5e95\uff0c\u7406\u5f97\u6e05\u7684\u8d44\u4ea7\u3002"
+        - $formkit: checkbox
+          label: "\u662f\u5426\u5f00\u542f\u4ef7\u683c\u663e\u793a"
+          name: showPrice
+          value: false
         - $formkit: text
           label: "\u8d44\u4ea7 ID \u524d\u7f00"
           name: assetIdPrefix

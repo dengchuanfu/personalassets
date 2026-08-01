@@ -116,7 +116,7 @@ const handleSaveEquipment = async () => {
         <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">
           <FormKit name="displayName" label="名称" type="text" validation="required"></FormKit>
           <FormKit name="cover" label="封面" type="attachment" :accepts="['image/*']"></FormKit>
-          <FormKit name="url" label="资产地址" type="text" :accepts="['image/*']"></FormKit>
+          <FormKit name="url" label="价格" type="text"></FormKit>
           <FormKit name="specification" label="资产规格" type="text" ></FormKit>
           <FormKit name="description" label="描述" type="textarea"></FormKit>
         </div>
