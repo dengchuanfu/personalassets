@@ -29,9 +29,9 @@ public class PersonalAssetQueryEndpoint implements CustomEndpoint {
 
     @Override
     public RouterFunction<ServerResponse> endpoint() {
-        final var tag = LegacyResourceNames.PUBLIC_API_VERSION + "/PersonalAsset";
+        final var tag = PersonalAssetResourceNames.PUBLIC_API_VERSION + "/PersonalAsset";
         return route()
-            .GET(LegacyResourceNames.ASSETS_PLURAL, this::listPersonalAssets,
+            .GET(PersonalAssetResourceNames.ASSETS_PLURAL, this::listPersonalAssets,
                 builder -> {
                     builder.operationId("queryPersonalAssets")
                         .description("List personal assets.")
@@ -67,6 +67,6 @@ public class PersonalAssetQueryEndpoint implements CustomEndpoint {
     
     @Override
     public GroupVersion groupVersion() {
-        return GroupVersion.parseAPIVersion(LegacyResourceNames.PUBLIC_API_VERSION);
+        return GroupVersion.parseAPIVersion(PersonalAssetResourceNames.PUBLIC_API_VERSION);
     }
 }

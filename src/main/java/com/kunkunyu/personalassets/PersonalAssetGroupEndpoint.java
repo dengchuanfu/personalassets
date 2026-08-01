@@ -30,7 +30,7 @@ public class PersonalAssetGroupEndpoint implements CustomEndpoint {
     @Override
     public RouterFunction<ServerResponse> endpoint() {
         return route()
-            .GET(LegacyResourceNames.GROUPS_PLURAL, this::listPersonalAssetGroup,
+            .GET(PersonalAssetResourceNames.GROUPS_PLURAL, this::listPersonalAssetGroup,
                 builder -> {
                     builder.operationId("ListPersonalAssets")
                         .description("List personal asset groups.")
@@ -40,7 +40,7 @@ public class PersonalAssetGroupEndpoint implements CustomEndpoint {
                     PersonalAssetQuery.buildParameters(builder);
                 }
             )
-            .DELETE(LegacyResourceNames.GROUPS_PLURAL + "/{name}", this::deletePersonalAssetGroup,
+            .DELETE(PersonalAssetResourceNames.GROUPS_PLURAL + "/{name}", this::deletePersonalAssetGroup,
                 builder -> builder.operationId("DeletePersonalAssetGroup")
                     .description("Delete personalAsset group.")
                     .parameter(parameterBuilder()
@@ -57,7 +57,7 @@ public class PersonalAssetGroupEndpoint implements CustomEndpoint {
 
     @Override
     public GroupVersion groupVersion() {
-        return GroupVersion.parseAPIVersion(LegacyResourceNames.CONSOLE_API_VERSION);
+        return GroupVersion.parseAPIVersion(PersonalAssetResourceNames.CONSOLE_API_VERSION);
     }
 
     private Mono<ServerResponse> deletePersonalAssetGroup(ServerRequest serverRequest) {

@@ -10,9 +10,9 @@ import run.halo.app.extension.GVK;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@GVK(group = LegacyResourceNames.MODEL_GROUP, version = "v1alpha1",
-    kind = LegacyResourceNames.GROUP_KIND, plural = LegacyResourceNames.GROUPS_PLURAL,
-    singular = LegacyResourceNames.GROUP_SINGULAR)
+@GVK(group = PersonalAssetResourceNames.MODEL_GROUP, version = "v1alpha1",
+    kind = PersonalAssetResourceNames.GROUP_KIND, plural = PersonalAssetResourceNames.GROUPS_PLURAL,
+    singular = PersonalAssetResourceNames.GROUP_SINGULAR)
 public class PersonalAssetGroup extends AbstractExtension {
 
     @Schema(required = true)

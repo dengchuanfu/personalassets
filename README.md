@@ -12,7 +12,6 @@
 - 支持从 Halo 附件库批量选择图片创建资产。
 - 支持资产拖拽排序、批量删除和批量移动分组。
 - 内置前台页面 `/personalassets`，安装启用后即可访问。
-- 提供主题端 Finder，可在主题模板中自定义资产展示样式。
 
 ## 环境要求
 
@@ -99,57 +98,12 @@
 
 如果当前主题不是 Earth，或者希望完全自定义页面结构，可以在主题中提供 `personalassets.html` 模板，Halo 会优先使用主题模板。
 
-插件在主题端提供 `personalassets` Finder，可用于查询资产和分组。
-
-### 查询全部资产
-
-```html
-<th:block th:each="personalAsset : ${personalassets.listAll()}">
-  <img th:src="${personalAsset.spec.cover}" th:alt="${personalAsset.spec.displayName}">
-  <a th:href="${personalAsset.spec.url}" th:text="${personalAsset.spec.displayName}"></a>
-</th:block>
-```
-
-### 按分组展示资产
-
-```html
-<th:block th:each="group : ${personalassets.groupBy()}">
-  <section>
-    <h2 th:text="${group.spec.displayName}"></h2>
-    <p th:if="${not #strings.isEmpty(group.spec.description)}" th:text="${group.spec.description}"></p>
-
-    <div th:each="personalAsset : ${group.personalAssets}">
-      <img th:src="${personalAsset.spec.cover}" th:alt="${personalAsset.spec.displayName}">
-      <h3 th:text="${personalAsset.spec.displayName}"></h3>
-      <p th:if="${not #strings.isEmpty(personalAsset.spec.specification)}" th:text="${personalAsset.spec.specification}"></p>
-      <p th:if="${not #strings.isEmpty(personalAsset.spec.description)}" th:text="${personalAsset.spec.description}"></p>
-      <a th:if="${not #strings.isEmpty(personalAsset.spec.url)}" th:href="${personalAsset.spec.url}" target="_blank">查看</a>
-    </div>
-  </section>
-</th:block>
-```
-
-### 按指定分组查询
-
-```html
-<th:block th:each="personalAsset : ${personalassets.listBy('personalassets-group-example')}">
-  <span th:text="${personalAsset.spec.displayName}"></span>
-</th:block>
-```
-
 ## 常见问题
 
 ### 前台访问 `/personalassets` 显示空白怎么办？
 
 请先确认插件已经启用，并且已在 Console 的「资产」页面中新建分组和资产。资产必须归属于某个分组才会在分组展示中出现。
 
-### 图片不显示怎么办？
-
-请检查资产封面地址是否可以正常访问。如果使用 Halo 附件库图片，确认附件本身可公开访问。
-
-### 分组筛选没有效果怎么办？
-
-`group` 参数需要填写分组的 `metadata.name`。如果只知道分组显示名称，可以在浏览器开发者工具或 Halo 数据详情中查看对应的 `metadata.name`。
 
 ## 开发构建
 

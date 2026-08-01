@@ -26,9 +26,9 @@ public class PersonalAssetEndpoint implements CustomEndpoint {
 
     @Override
     public RouterFunction<ServerResponse> endpoint() {
-        final var tag = LegacyResourceNames.CONSOLE_API_VERSION + "/PersonalAsset";
+        final var tag = PersonalAssetResourceNames.CONSOLE_API_VERSION + "/PersonalAsset";
         return route()
-            .GET(LegacyResourceNames.ASSETS_PLURAL, this::listPersonalAsset,
+            .GET(PersonalAssetResourceNames.ASSETS_PLURAL, this::listPersonalAsset,
                 builder -> {
                     builder.operationId("ListPersonalAssets")
                         .description("List personal assets.")
@@ -44,7 +44,7 @@ public class PersonalAssetEndpoint implements CustomEndpoint {
 
     @Override
     public GroupVersion groupVersion() {
-        return GroupVersion.parseAPIVersion(LegacyResourceNames.CONSOLE_API_VERSION);
+        return GroupVersion.parseAPIVersion(PersonalAssetResourceNames.CONSOLE_API_VERSION);
     }
 
     private Mono<ServerResponse> listPersonalAsset(ServerRequest serverRequest) {

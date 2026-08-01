@@ -10,7 +10,7 @@ metadata:
     rbac.authorization.halo.run/module: "PersonalAssets"
     rbac.authorization.halo.run/display-name: "PersonalAssets Public APIs"
 rules:
-  - apiGroups: [ "api.equipment.kunkunyu.com" ]
+  - apiGroups: [ "api.personalassets.ffbf.top" ]
     resources: [ "*" ]
     verbs: [ "*" ]
 
@@ -27,8 +27,8 @@ metadata:
     rbac.authorization.halo.run/ui-permissions: '["plugin:personalassets:view"]'
     rbac.authorization.halo.run/display-name: "资产查看"
 rules:
-  - apiGroups: [ "equipment.kunkunyu.com", "console.api.equipment.kunkunyu.com"]
-    resources: [ "equipments", "equipmentgroups" ]
+  - apiGroups: [ "personalassets.ffbf.top", "console.api.personalassets.ffbf.top"]
+    resources: [ "personalassets", "personalassetgroups" ]
     verbs: [ "get", "list" ]
 ---
 apiVersion: v1alpha1
@@ -43,6 +43,6 @@ metadata:
     rbac.authorization.halo.run/module: "资产"
     rbac.authorization.halo.run/display-name: "资产管理"
 rules:
-  - apiGroups: [ "equipment.kunkunyu.com", "console.api.equipment.kunkunyu.com"]
-    resources: [ "equipments", "equipmentgroups" ]
+  - apiGroups: [ "personalassets.ffbf.top", "console.api.personalassets.ffbf.top"]
+    resources: [ "personalassets", "personalassetgroups" ]
     verbs: [ "create", "patch", "update", "delete", "deletecollection" ]

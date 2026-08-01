@@ -26,9 +26,9 @@ public class PersonalAssetGroupQueryEndpoint implements CustomEndpoint {
 
     @Override
     public RouterFunction<ServerResponse> endpoint() {
-        final var tag = LegacyResourceNames.PUBLIC_API_VERSION + "/PersonalAssetGroup";
+        final var tag = PersonalAssetResourceNames.PUBLIC_API_VERSION + "/PersonalAssetGroup";
         return route()
-            .GET(LegacyResourceNames.GROUPS_PLURAL, this::listGroups,
+            .GET(PersonalAssetResourceNames.GROUPS_PLURAL, this::listGroups,
                 builder -> {
                     builder.operationId("queryPersonalAssetGroups")
                         .description("List personal asset groups.")
@@ -43,7 +43,7 @@ public class PersonalAssetGroupQueryEndpoint implements CustomEndpoint {
 
     @Override
     public GroupVersion groupVersion() {
-        return GroupVersion.parseAPIVersion(LegacyResourceNames.PUBLIC_API_VERSION);
+        return GroupVersion.parseAPIVersion(PersonalAssetResourceNames.PUBLIC_API_VERSION);
     }
 
     private Mono<ServerResponse> listGroups(ServerRequest request) {
