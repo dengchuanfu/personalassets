@@ -12,17 +12,17 @@ export interface Metadata {
   deletionTimestamp?: string | null;
 }
 
-export interface EquipmentGroupSpec {
+export interface PersonalAssetGroupSpec {
   displayName: string;
   description?: string;
   priority?: number;
 }
 
-export interface EquipmentGroupStatus {
-  equipmentCount: number;
+export interface PersonalAssetGroupStatus {
+  personalAssetCount: number;
 }
 
-export interface EquipmentSpec {
+export interface PersonalAssetSpec {
   displayName: string;
   specification?: string;
   description?: string;
@@ -32,38 +32,38 @@ export interface EquipmentSpec {
   groupName: string;
 }
 
-export interface Equipment {
-  spec: EquipmentSpec;
+export interface PersonalAsset {
+  spec: PersonalAssetSpec;
   apiVersion: string;
   kind: string;
   metadata: Metadata;
 }
 
-export interface EquipmentGroup {
-  spec: EquipmentGroupSpec;
+export interface PersonalAssetGroup {
+  spec: PersonalAssetGroupSpec;
   apiVersion: string;
   kind: string;
   metadata: Metadata;
-  status: EquipmentGroupStatus;
+  status: PersonalAssetGroupStatus;
 }
 
-export interface EquipmentList {
+export interface PersonalAssetList {
   page: number;
   size: number;
   total: number;
   totalPages: number;
-  items: Array<Equipment>;
+  items: Array<PersonalAsset>;
   first: boolean;
   last: boolean;
   hasNext: boolean;
   hasPrevious: boolean;
 }
 
-export interface EquipmentGroupList {
+export interface PersonalAssetGroupList {
   page: number;
   size: number;
   total: number;
-  items: Array<EquipmentGroup>;
+  items: Array<PersonalAssetGroup>;
   first: boolean;
   last: boolean;
   hasNext: boolean;

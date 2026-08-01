@@ -3,7 +3,7 @@ plugins {
     id "com.github.node-gradle.node" version "7.1.0"
 }
 
-group 'com.kunkunyu.equipment.ui'
+group 'com.kunkunyu.personalassets.ui'
 
 node {
     pnpmVersion = '9.15.9'

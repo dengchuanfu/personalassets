@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import type { EquipmentGroup } from "@/types";
+import type { PersonalAssetGroup } from "@/types";
+import {
+  PERSONAL_ASSET_API_VERSION,
+  PERSONAL_ASSET_GROUP_API,
+  PERSONAL_ASSET_GROUP_KIND,
+  PERSONAL_ASSET_MODEL_GROUP,
+} from "@/utils/personalassets-api";
 import { axiosInstance } from "@halo-dev/api-client";
 import { VButton, VModal, VSpace } from "@halo-dev/components";
 import { cloneDeep } from "lodash-es";
@@ -7,7 +13,7 @@ import {computed, nextTick, onMounted, ref, useTemplateRef, watch} from "vue";
 
 const props = withDefaults(
   defineProps<{
-    group?: EquipmentGroup;
+    group?: PersonalAssetGroup;
   }>(),
   {
     group: undefined,
@@ -18,23 +24,23 @@ const emit = defineEmits<{
   (event: "close"): void;
 }>();
 
-const initialFormState: EquipmentGroup = {
-  apiVersion: "equipment.kunkunyu.com/v1alpha1",
-  kind: "EquipmentGroup",
+const initialFormState: PersonalAssetGroup = {
+  apiVersion: PERSONAL_ASSET_API_VERSION,
+  kind: PERSONAL_ASSET_GROUP_KIND,
   metadata: {
     name: "",
-    generateName: "equipment-group-",
+    generateName: "personalassets-group-",
   },
   spec: {
     displayName: "",
     priority: 0,
   },
   status: {
-    equipmentCount: 0,
+    personalAssetCount: 0,
   },
 };
 
-const formState = ref<EquipmentGroup>(initialFormState);
+const formState = ref<PersonalAssetGroup>(initialFormState);
 const isSubmitting = ref(false);
 const modal = useTemplateRef<InstanceType<typeof VModal> | null>("modal");
 
@@ -62,15 +68,15 @@ const handleCreateOrUpdateGroup = async () => {
     isSubmitting.value = true;
     if (isUpdateMode.value) {
       await axiosInstance.put(
-        `/apis/equipment.kunkunyu.com/v1alpha1/equipmentgroups/${formState.value.metadata.name}`,
+        `${PERSONAL_ASSET_GROUP_API}/${formState.value.metadata.name}`,
         formState.value
       );
     } else {
-      await axiosInstance.post("/apis/equipment.kunkunyu.com/v1alpha1/equipmentgroups", formState.value);
+      await axiosInstance.post(PERSONAL_ASSET_GROUP_API, formState.value);
     }
     modal.value?.close();
   } catch (e) {
-    console.error("Failed to create equipment group", e);
+    console.error("Failed to create personalAsset group", e);
   } finally {
     isSubmitting.value = false;
   }
@@ -85,9 +91,9 @@ onMounted(() => {
 <template>
   <VModal ref="modal" :width="600" :title="modalTitle" @close="emit('close')">
     <FormKit
-      id="equipment-group-form"
+      id="personalassets-group-form"
       v-model="formState.spec"
-      name="equipment-group-form"
+      name="personalassets-group-form"
       type="form"
       @submit="handleCreateOrUpdateGroup"
     >
@@ -128,14 +134,14 @@ onMounted(() => {
           :key="formState.metadata.name"
           ref="annotationsGroupFormRef"
           :value="formState.metadata.annotations"
-          kind="EquipmentGroup"
-          group="equipment.kunkunyu.com"
+          :kind="PERSONAL_ASSET_GROUP_KIND"
+          :group="PERSONAL_ASSET_MODEL_GROUP"
         />
       </div>
     </div>
     <template #footer>
       <VSpace>
-        <VButton :loading="isSubmitting" type="secondary" @click="$formkit.submit('equipment-group-form')">
+        <VButton :loading="isSubmitting" type="secondary" @click="$formkit.submit('personalassets-group-form')">
           提交
         </VButton>
         <VButton @click="emit('close')">取消</VButton>

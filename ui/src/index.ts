@@ -10,7 +10,7 @@ export default definePlugin({
       route: {
         path: "/personalassets",
         name: "PluginPersonalAssets",
-        component: () => import("@/views/EquipmentList.vue"),
+        component: () => import("@/views/PersonalAssetList.vue"),
         meta: {
           title: "资产",
           searchable: true,
@@ -29,14 +29,6 @@ export default definePlugin({
       route: {
         path: "/assets",
         name: "Assets",
-        redirect: { name: "PluginPersonalAssets" },
-      },
-    },
-    {
-      parentName: "Root",
-      route: {
-        path: "/equipments",
-        name: "Equipments",
         redirect: { name: "PluginPersonalAssets" },
       },
     },

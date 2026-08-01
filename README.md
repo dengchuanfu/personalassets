@@ -8,7 +8,7 @@
 
 - 在 Halo Console 中管理资产分组。
 - 为每个分组添加资产条目。
-- 支持资产名称、封面、资产地址、规格和描述。
+- 支持资产名称、封面、价格、规格和描述。
 - 支持从 Halo 附件库批量选择图片创建资产。
 - 支持资产拖拽排序、批量删除和批量移动分组。
 - 内置前台页面 `/personalassets`，安装启用后即可访问。
@@ -104,9 +104,9 @@
 ### 查询全部资产
 
 ```html
-<th:block th:each="equipment : ${personalassets.listAll()}">
-  <img th:src="${equipment.spec.cover}" th:alt="${equipment.spec.displayName}">
-  <a th:href="${equipment.spec.url}" th:text="${equipment.spec.displayName}"></a>
+<th:block th:each="personalAsset : ${personalassets.listAll()}">
+  <img th:src="${personalAsset.spec.cover}" th:alt="${personalAsset.spec.displayName}">
+  <a th:href="${personalAsset.spec.url}" th:text="${personalAsset.spec.displayName}"></a>
 </th:block>
 ```
 
@@ -118,12 +118,12 @@
     <h2 th:text="${group.spec.displayName}"></h2>
     <p th:if="${not #strings.isEmpty(group.spec.description)}" th:text="${group.spec.description}"></p>
 
-    <div th:each="equipment : ${group.equipments}">
-      <img th:src="${equipment.spec.cover}" th:alt="${equipment.spec.displayName}">
-      <h3 th:text="${equipment.spec.displayName}"></h3>
-      <p th:if="${not #strings.isEmpty(equipment.spec.specification)}" th:text="${equipment.spec.specification}"></p>
-      <p th:if="${not #strings.isEmpty(equipment.spec.description)}" th:text="${equipment.spec.description}"></p>
-      <a th:if="${not #strings.isEmpty(equipment.spec.url)}" th:href="${equipment.spec.url}" target="_blank">查看</a>
+    <div th:each="personalAsset : ${group.personalAssets}">
+      <img th:src="${personalAsset.spec.cover}" th:alt="${personalAsset.spec.displayName}">
+      <h3 th:text="${personalAsset.spec.displayName}"></h3>
+      <p th:if="${not #strings.isEmpty(personalAsset.spec.specification)}" th:text="${personalAsset.spec.specification}"></p>
+      <p th:if="${not #strings.isEmpty(personalAsset.spec.description)}" th:text="${personalAsset.spec.description}"></p>
+      <a th:if="${not #strings.isEmpty(personalAsset.spec.url)}" th:href="${personalAsset.spec.url}" target="_blank">查看</a>
     </div>
   </section>
 </th:block>
@@ -132,8 +132,8 @@
 ### 按指定分组查询
 
 ```html
-<th:block th:each="equipment : ${personalassets.listBy('equipment-group-example')}">
-  <span th:text="${equipment.spec.displayName}"></span>
+<th:block th:each="personalAsset : ${personalassets.listBy('personalassets-group-example')}">
+  <span th:text="${personalAsset.spec.displayName}"></span>
 </th:block>
 ```
 

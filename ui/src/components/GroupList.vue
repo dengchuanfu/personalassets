@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { EquipmentGroup, EquipmentGroupList } from "../types/index";
+import type { PersonalAssetGroup, PersonalAssetGroupList } from "../types/index";
+import {
+  PERSONAL_ASSET_GROUP_API,
+  PERSONAL_ASSET_GROUP_CONSOLE_API,
+} from "@/utils/personalassets-api";
 import { axiosInstance } from "@halo-dev/api-client";
 import {
   Dialog,
@@ -25,16 +29,16 @@ const emit = defineEmits<{
 
 const groupEditingModal = ref(false);
 
-const updateGroup = ref<EquipmentGroup>();
+const updateGroup = ref<PersonalAssetGroup>();
 
-const selectedGroup = useRouteQuery<string>("equipment-group");
+const selectedGroup = useRouteQuery<string>("personalAsset-group");
 
-const groups = ref<EquipmentGroup[]>([]);
+const groups = ref<PersonalAssetGroup[]>([]);
 
-const { refetch, isLoading } = useQuery<EquipmentGroup[]>({
+const { refetch, isLoading } = useQuery<PersonalAssetGroup[]>({
   queryKey: ["plugin:personalassets:groups"],
   queryFn: async () => {
-    const { data } = await axiosInstance.get<EquipmentGroupList>("/apis/console.api.equipment.kunkunyu.com/v1alpha1/equipmentgroups");
+    const { data } = await axiosInstance.get<PersonalAssetGroupList>(PERSONAL_ASSET_GROUP_CONSOLE_API);
     return data.items
       .map((group) => {
         if (group.spec) {
@@ -73,11 +77,11 @@ const { refetch, isLoading } = useQuery<EquipmentGroup[]>({
 
 const handleSaveInBatch = async () => {
   try {
-    const promises = groups.value?.map((group: EquipmentGroup, index) => {
+    const promises = groups.value?.map((group: PersonalAssetGroup, index) => {
       if (group.spec) {
         group.spec.priority = index;
       }
-      return axiosInstance.put(`/apis/equipment.kunkunyu.com/v1alpha1/equipmentgroups/${group.metadata.name}`, group);
+      return axiosInstance.put(`${PERSONAL_ASSET_GROUP_API}/${group.metadata.name}`, group);
     });
     if (promises) {
       await Promise.all(promises);
@@ -89,28 +93,28 @@ const handleSaveInBatch = async () => {
   }
 };
 
-const handleDelete = async (group: EquipmentGroup) => {
+const handleDelete = async (group: PersonalAssetGroup) => {
   Dialog.warning({
     title: "确定要删除该分组吗？",
     description: "将同时删除该分组下的所有资产，该操作不可恢复。",
     confirmType: "danger",
     onConfirm: async () => {
       try {
-        await axiosInstance.delete(`/apis/console.api.equipment.kunkunyu.com/v1alpha1/equipmentgroups/${group.metadata.name}`);
+        await axiosInstance.delete(`${PERSONAL_ASSET_GROUP_CONSOLE_API}/${group.metadata.name}`);
         refetch();
       } catch (e) {
-        console.error("Failed to delete equipment group", e);
+        console.error("Failed to delete personal asset group", e);
       }
     },
   });
 };
 
-const handleOpenEditingModal = (group?: EquipmentGroup) => {
+const handleOpenEditingModal = (group?: PersonalAssetGroup) => {
   groupEditingModal.value = true;
   updateGroup.value = group;
 };
 
-const handleSelectedClick = (group: EquipmentGroup) => {
+const handleSelectedClick = (group: PersonalAssetGroup) => {
   selectedGroup.value = group.metadata.name;
   emit("select", group.metadata.name);
 };
@@ -167,7 +171,7 @@ function onGroupEditingModalClose() {
               <template #start>
                 <VEntityField
                   :title="group.spec?.displayName"
-                  :description="`${group.status.equipmentCount || 0} 个资产`"
+                  :description="`${group.status.personalAssetCount || 0} 个资产`"
                 ></VEntityField>
               </template>
 
