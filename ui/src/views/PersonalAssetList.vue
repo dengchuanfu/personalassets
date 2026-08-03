@@ -139,14 +139,15 @@ const { refetch: groupRefetch, isLoading: groupIsLoading } = useQuery<PersonalAs
 });
 
 const handleSelectPrevious = () => {
-  if (!personalAssets.value) {
+  const assets = displayedPersonalAssets.value;
+  if (!assets.length) {
     return;
   }
 
-  const currentIndex = personalAssets.value.findIndex((personalAsset) => personalAsset.metadata.name === selectedPersonalAsset.value?.metadata.name);
+  const currentIndex = assets.findIndex((personalAsset) => personalAsset.metadata.name === selectedPersonalAsset.value?.metadata.name);
 
   if (currentIndex > 0) {
-    selectedPersonalAsset.value = personalAssets.value[currentIndex - 1];
+    selectedPersonalAsset.value = assets[currentIndex - 1];
     return;
   }
 
@@ -156,17 +157,18 @@ const handleSelectPrevious = () => {
 };
 
 const handleSelectNext = () => {
-  if (!personalAssets.value) {
+  const assets = displayedPersonalAssets.value;
+  if (!assets.length) {
     return;
   }
 
   if (!selectedPersonalAsset.value) {
-    selectedPersonalAsset.value = personalAssets.value[0];
+    selectedPersonalAsset.value = assets[0];
     return;
   }
-  const currentIndex = personalAssets.value.findIndex((personalAsset) => personalAsset.metadata.name === selectedPersonalAsset.value?.metadata.name);
-  if (currentIndex !== personalAssets.value.length - 1) {
-    selectedPersonalAsset.value = personalAssets.value[currentIndex + 1];
+  const currentIndex = assets.findIndex((personalAsset) => personalAsset.metadata.name === selectedPersonalAsset.value?.metadata.name);
+  if (currentIndex !== assets.length - 1) {
+    selectedPersonalAsset.value = assets[currentIndex + 1];
   }
 };
 
@@ -232,7 +234,7 @@ const handleCheckAllChange = (e: Event) => {
   checkedAll.value = checked;
   if (checkedAll.value) {
     selectedPersonalAssetNames.value =
-      personalAssets.value?.map((personalAsset) => {
+      displayedPersonalAssets.value?.map((personalAsset) => {
         return personalAsset.metadata.name;
       }) || [];
   } else {
@@ -250,11 +252,12 @@ const isChecked = (personalAsset: PersonalAsset) => {
 };
 
 watch(selectedPersonalAssetNames, (newValue) => {
-  checkedAll.value = newValue.length === personalAssets.value?.length;
+  checkedAll.value = !!displayedPersonalAssets.value.length && newValue.length === displayedPersonalAssets.value.length;
 });
 
 // search
 let fuse: Fuse<PersonalAsset> | undefined = undefined;
+const isSearching = computed(() => keyword.value.trim().length > 0);
 
 watch(
   () => personalAssets.value,
@@ -270,16 +273,30 @@ watch(
   }
 );
 
-const searchResults = computed({
+watch(keyword, () => {
+  page.value = 1;
+  selectedPersonalAssetNames.value.length = 0;
+});
+
+watch(selectedGroup, () => {
+  page.value = 1;
+  keyword.value = "";
+  selectedPersonalAssetNames.value.length = 0;
+});
+
+const displayedPersonalAssets = computed({
   get() {
-    if (!fuse || !keyword.value) {
+    const searchKeyword = keyword.value.trim();
+    if (!fuse || !searchKeyword) {
       return personalAssets.value || [];
     }
 
-    return fuse?.search(keyword.value).map((item) => item.item);
+    return fuse.search(searchKeyword).map((item) => item.item);
   },
   set(value) {
-    personalAssets.value = value;
+    if (!isSearching.value) {
+      personalAssets.value = value;
+    }
   },
 });
 
@@ -468,7 +485,7 @@ const onEditingModalClose = () => {
           <Transition v-else-if="!selectedGroup" appear name="fade">
             <VEmpty message="请选择或新建分组" title="未选择分组"></VEmpty>
           </Transition>
-          <Transition v-else-if="!searchResults.length" appear name="fade">
+          <Transition v-else-if="!displayedPersonalAssets.length" appear name="fade">
             <VEmpty message="你可以尝试刷新或者新建资产" title="当前没有资产">
               <template #actions>
                 <VSpace>
@@ -485,8 +502,9 @@ const onEditingModalClose = () => {
           </Transition>
           <Transition v-else appear name="fade">
             <VueDraggable
-              v-model="personalAssets"
+              v-model="displayedPersonalAssets"
               class=":uno: grid grid-cols-1 mt-2 gap-x-2 gap-y-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+              :disabled="isSearching"
               group="personalassets"
               handle=".drag-element"
               item-key="metadata.name"
@@ -495,7 +513,7 @@ const onEditingModalClose = () => {
               @update="handleSaveInBatch"
             >
               <VCard
-                v-for="personalAsset in personalAssets"
+                v-for="personalAsset in displayedPersonalAssets"
                 :key="personalAsset.metadata.name"
                 :body-class="[':uno: !p-0']"
                 :class="{

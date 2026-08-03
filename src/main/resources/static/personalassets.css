@@ -330,6 +330,10 @@
     transform: translateY(-4px);
 }
 
+.personalassets-is-hidden {
+    display: none !important;
+}
+
 .personalassets-item-content-item-info {
     flex: 0 0 58px;
     margin-top: 0;

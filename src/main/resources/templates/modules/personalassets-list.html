@@ -50,7 +50,9 @@
                     </svg>
                     <h2 class="personalassets-item-title" th:text="${group.spec.displayName}"></h2>
                     <span class="personalassets-item-count">
-                        <span>&#65288;</span><span th:text="${#lists.size(group.personalAssets)}"></span><span>&#65289;</span>
+                        <span>&#65288;</span><span class="personalassets-item-count-value"
+                                                  th:text="${#lists.size(group.personalAssets)}"
+                                                  th:attr="data-personalassets-total=${#lists.size(group.personalAssets)}"></span><span>&#65289;</span>
                     </span>
                 </div>
             </div>
@@ -62,7 +64,7 @@
             <div class="personalassets-item-content">
                 <article th:each="personalAsset : ${group.personalAssets}"
                          class="personalassets-item-content-item"
-                         th:attr="data-personalassets-search=${#strings.toLowerCase(personalAsset.spec.displayName + ' ' + personalAsset.spec.specification + ' ' + personalAsset.spec.description + ' ' + personalAsset.spec.url + ' ' + personalAsset.assetId)}">
+                         th:attr="data-personalassets-search=${#strings.toLowerCase(personalAsset.spec.displayName + ' ' + personalAsset.assetId + ' ' + personalAsset.metadata.name)}">
                     <div class="personalassets-item-content-item-cover">
                         <img class="personalassets-item-content-item-image entered"
                              th:alt="${personalAsset.spec.displayName}"
@@ -118,22 +120,50 @@
 
                 const groups = [...root.querySelectorAll(".personalassets-item")];
                 const cards = [...root.querySelectorAll(".personalassets-item-content-item")];
+                const normalize = (value) => (value || "")
+                    .toString()
+                    .toLowerCase()
+                    .normalize("NFKD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[\s\-_.#/\\]+/g, "");
+
+                const matchesCard = (card, keyword) => {
+                    if (!keyword) {
+                        return true;
+                    }
+
+                    const text = card.dataset.personalassetsSearch || "";
+                    const normalizedText = normalize(text);
+                    return keyword.split(/\s+/)
+                        .filter(Boolean)
+                        .every((word) => {
+                            const normalizedWord = normalize(word);
+                            return text.includes(word.toLowerCase())
+                                || normalizedText.includes(normalizedWord);
+                        });
+                };
 
                 const filterAssets = () => {
-                    const keyword = input.value.trim().toLowerCase();
+                    const keyword = input.value.trim();
 
                     cards.forEach((card) => {
-                        const text = card.dataset.personalassetsSearch || "";
-                        card.hidden = keyword !== "" && !text.includes(keyword);
+                        card.classList.toggle("personalassets-is-hidden", !matchesCard(card, keyword));
                     });
 
                     groups.forEach((group) => {
-                        const visibleCards = group.querySelectorAll(".personalassets-item-content-item:not([hidden])");
-                        group.hidden = keyword !== "" && visibleCards.length === 0;
+                        const visibleCards = group.querySelectorAll(".personalassets-item-content-item:not(.personalassets-is-hidden)");
+                        const count = group.querySelector(".personalassets-item-count-value");
+                        if (count) {
+                            count.textContent = keyword === ""
+                                ? count.dataset.personalassetsTotal || String(visibleCards.length)
+                                : String(visibleCards.length);
+                        }
+                        group.classList.toggle("personalassets-is-hidden", keyword !== "" && visibleCards.length === 0);
                     });
                 };
 
                 input.addEventListener("input", filterAssets);
+                input.addEventListener("search", filterAssets);
                 select.addEventListener("change", () => form?.requestSubmit());
                 filterAssets();
             };
