@@ -1,11 +1,11 @@
-package com.kunkunyu.personalassets.vo;
+package com.monster.personalassets.vo;
 
 import java.util.List;
 import lombok.Builder;
 import lombok.Value;
 import run.halo.app.extension.MetadataOperator;
 import run.halo.app.theme.finders.vo.ExtensionVoOperator;
-import com.kunkunyu.personalassets.PersonalAssetGroup;
+import com.monster.personalassets.PersonalAssetGroup;
 
 
 @Value

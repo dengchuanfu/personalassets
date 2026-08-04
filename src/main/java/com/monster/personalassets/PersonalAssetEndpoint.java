@@ -1,4 +1,4 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 import static org.springdoc.core.fn.builders.apiresponse.Builder.responseBuilder;
 import static org.springdoc.webflux.core.fn.SpringdocRouteBuilder.route;
@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 import run.halo.app.core.extension.endpoint.CustomEndpoint;
 import run.halo.app.extension.GroupVersion;
 import run.halo.app.extension.ListResult;
-import com.kunkunyu.personalassets.service.PersonalAssetService;
+import com.monster.personalassets.service.PersonalAssetService;
 
 /**
  * A custom endpoint for {@link PersonalAsset}.

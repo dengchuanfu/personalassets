@@ -1,12 +1,12 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static run.halo.app.theme.router.PageUrlUtils.totalPage;
 
-import com.kunkunyu.personalassets.finders.PersonalAssetsFinder;
-import com.kunkunyu.personalassets.vo.PersonalAssetGroupVo;
-import com.kunkunyu.personalassets.vo.PersonalAssetVo;
+import com.monster.personalassets.finders.PersonalAssetsFinder;
+import com.monster.personalassets.vo.PersonalAssetGroupVo;
+import com.monster.personalassets.vo.PersonalAssetVo;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

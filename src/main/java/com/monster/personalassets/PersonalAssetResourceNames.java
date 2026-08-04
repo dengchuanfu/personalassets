@@ -1,4 +1,4 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 final class PersonalAssetResourceNames {
 

@@ -1,4 +1,4 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 
 import org.springframework.stereotype.Component;

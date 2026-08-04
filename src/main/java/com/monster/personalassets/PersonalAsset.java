@@ -1,4 +1,4 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 

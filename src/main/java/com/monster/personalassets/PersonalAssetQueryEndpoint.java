@@ -1,10 +1,10 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 import static org.springdoc.core.fn.builders.apiresponse.Builder.responseBuilder;
 import static org.springdoc.webflux.core.fn.SpringdocRouteBuilder.route;
 
-import com.kunkunyu.personalassets.finders.PersonalAssetPublicQueryService;
-import com.kunkunyu.personalassets.vo.PersonalAssetVo;
+import com.monster.personalassets.finders.PersonalAssetPublicQueryService;
+import com.monster.personalassets.vo.PersonalAssetVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;

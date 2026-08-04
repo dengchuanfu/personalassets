@@ -1,9 +1,9 @@
-package com.kunkunyu.personalassets.service;
+package com.monster.personalassets.service;
 
 import reactor.core.publisher.Mono;
 import run.halo.app.extension.ListResult;
 import run.halo.app.extension.router.IListRequest.QueryListRequest;
-import com.kunkunyu.personalassets.PersonalAssetGroup;
+import com.monster.personalassets.PersonalAssetGroup;
 
 /**
  * A service for {@link PersonalAssetGroup}.

@@ -1,4 +1,4 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
 import static org.springdoc.core.fn.builders.parameter.Builder.parameterBuilder;
 import static run.halo.app.extension.index.query.Queries.and;

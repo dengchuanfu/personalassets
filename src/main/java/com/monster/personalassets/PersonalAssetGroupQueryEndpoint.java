@@ -1,7 +1,7 @@
-package com.kunkunyu.personalassets;
+package com.monster.personalassets;
 
-import com.kunkunyu.personalassets.finders.PersonalAssetPublicQueryService;
-import com.kunkunyu.personalassets.vo.PersonalAssetGroupVo;
+import com.monster.personalassets.finders.PersonalAssetPublicQueryService;
+import com.monster.personalassets.vo.PersonalAssetGroupVo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

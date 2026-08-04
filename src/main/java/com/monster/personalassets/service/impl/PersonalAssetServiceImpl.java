@@ -1,4 +1,4 @@
-package com.kunkunyu.personalassets.service.impl;
+package com.monster.personalassets.service.impl;
 
 import static run.halo.app.extension.router.selector.SelectorUtil.labelAndFieldSelectorToListOptions;
 
@@ -10,9 +10,9 @@ import run.halo.app.extension.ListResult;
 import run.halo.app.extension.PageRequestImpl;
 import run.halo.app.extension.ReactiveExtensionClient;
 import run.halo.app.extension.index.query.Queries;
-import com.kunkunyu.personalassets.PersonalAsset;
-import com.kunkunyu.personalassets.PersonalAssetQuery;
-import com.kunkunyu.personalassets.service.PersonalAssetService;
+import com.monster.personalassets.PersonalAsset;
+import com.monster.personalassets.PersonalAssetQuery;
+import com.monster.personalassets.service.PersonalAssetService;
 
 /**
  * Service implementation for {@link PersonalAsset}.
